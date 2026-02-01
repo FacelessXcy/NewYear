@@ -113,6 +113,10 @@
             color: var(--text-dark);
         }
 
+        .indent {
+            text-indent: 2em;
+        }
+
         .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 12px 15px;
@@ -286,13 +290,11 @@
 
             <form id="bonusForm">
                 <div class="form-group">
-                    <label class="form-label">1. 请问您与发件人的关系是？</label>
+                    <label class="form-label">1. 请问您与小黄的关系是？</label>
                     <select class="form-select" required>
                         <option value="" disabled selected>请选择一种关系</option>
-                        <option value="bestie">虽然很损但很爱的死党</option>
-                        <option value="family">相亲相爱一家人</option>
-                        <option value="colleague">共同打工的难兄难弟</option>
-                        <option value="creditor">某种意义上的“债主”</option>
+                        <option value="bestie">亲爱的粑粑</option>
+                        <option value="family">亲爱的麻麻</option>
                     </select>
                 </div>
 
@@ -308,12 +310,12 @@
 
                 <div class="form-group">
                     <label class="form-label">3. 丙午马年，您最大的期许是？</label>
-                    <textarea class="form-textarea" placeholder="例如：暴富、脱单、不劳而获..." required></textarea>
+                    <textarea class="form-textarea" placeholder="例如：健康、暴富、不劳而获...也可以许点实际的哦~" required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">4. 请输入接收分红的银行卡号</label>
-                    <input type="number" class="form-input" placeholder="请输入您的银行卡号" required>
+                    <input type="string" class="form-input" placeholder="请输入您的银行卡号" required>
                     <div style="font-size: 12px; color: #999; margin-top: 5px;">*系统将通过此卡号发放巨额祝福</div>
                 </div>
 
@@ -334,10 +336,13 @@
                 </svg>
             </div>
             <h2>反诈警报！</h2>
-            <p><strong>您刚才差点就“被骗”了！</strong><br><br>
-            这只是一个玩笑，但如果这是真实的诈骗链接，您的银行卡信息可能已经泄露。<br><br>
-            春节将至，网络诈骗频发，<br>请务必做到：<br>
-            <span style="color:#d93a3a">不轻信、不转账、不随意填写个人信息。</span></p>
+            <p><strong>问君能有几多愁<br>莫做受骗大猪头</strong><br><br>
+            &emsp;&emsp;通知：各位市民大家好，近日出现多起熟人诈骗，
+                大多是熟人被盗号后向亲朋好友索要银行账号后利用
+                科技手段盗取钱财，多名市民被骗后丝毫没有察觉。所以请大
+                家多留心眼，截止2月16日，对被套取个人信息的市民进行
+                通报：不愿透露姓名的赵女士、也不是很谨慎的黄先生。<br><br>
+            <span style="color:#d93a3a">如遇诈骗，请立即拨打反诈专线:96110</span></p>
             <a href="#" class="modal-btn" onclick="closeModal()">我记住了，这就去下载反诈APP</a>
         </div>
     </div>
@@ -363,11 +368,10 @@
 
         function closeModal() {
             document.getElementById('alertModal').style.display = 'none';
-            alert("祝您新年快乐，钱包鼓鼓，远离诈骗！");
+            alert("爸爸妈妈新年快乐，守好钱袋子，练好体格子，天大的horse马上就来❤爱你们");
             // 可选：重置表单
             document.getElementById('bonusForm').reset();
         }
     </script>
 </body>
-
 </html>
