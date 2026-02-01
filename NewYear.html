@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2025年度年终分红登记</title>
+    <style>
+        :root {
+            --primary-red: #d93a3a;
+            --primary-gold: #eebf6d;
+            --bg-cream: #f9f4ef;
+            --text-dark: #333333;
+            --text-grey: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--primary-red);
+            background-image: radial-gradient(circle at 50% 30%, #e65c5c, #d93a3a);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 装饰元素：灯笼 */
+        .lantern {
+            position: absolute;
+            top: 0;
+            width: 60px;
+            z-index: 10;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+            animation: swing 3s infinite ease-in-out alternate;
+        }
+        .lantern.left { left: 20px; animation-delay: 0.5s; }
+        .lantern.right { right: 20px; transform-origin: top center; }
+
+        @keyframes swing {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        /* 主卡片 */
+        .card {
+            background: #fff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 40px 25px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 顶部装饰纹理 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(45deg, var(--primary-gold), var(--primary-gold) 10px, var(--primary-red) 10px, var(--primary-red) 20px);
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            color: var(--primary-red);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--text-grey);
+        }
+
+        /* 简约马装饰 */
+        .horse-icon {
+            display: block;
+            margin: 0 auto 15px;
+            width: 60px;
+            height: 60px;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--bg-cream);
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary-gold);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(238, 191, 109, 0.2);
+        }
+
+        .form-textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        /* 提交按钮 */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #d93a3a 0%, #c12e2e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 58, 58, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(217, 58, 58, 0.2);
+        }
+
+        /* 弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none; /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal {
+            background: #fff;
+            width: 100%;
+            max-width: 320px;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: #ffecec;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+        }
+
+        .modal-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary-red);
+        }
+
+        .modal h2 {
+            font-size: 18px;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            font-size: 14px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            background: var(--primary-red);
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="lantern left">
+        <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="48" y="0" width="4" height="20" fill="#FFD700"/>
+            <path d="M10 20H90C95.5228 20 100 24.4772 100 30V90C100 95.5228 95.5228 100 90 100H10C4.47715 100 0 95.5228 0 90V30C0 24.4772 4.47715 20 10 20Z" fill="#D93A3A"/>
+            <path d="M50 20V100" stroke="#B22222" stroke-width="2"/>
+            <path d="M25 20V100" stroke="#B22222" stroke-width="2"/>
+            <path d="M75 20V100" stroke="#B22222" stroke-width="2"/>
+            <rect x="20" y="100" width="60" height="10" fill="#FFD700"/>
+            <rect x="20" y="15" width="60" height="5" fill="#FFD700"/>
+            <line x1="30" y1="110" x2="30" y2="135" stroke="#D93A3A" stroke-width="3"/>
+            <line x1="50" y1="110" x2="50" y2="135" stroke="#D93A3A" stroke-width="3"/>
+            <line x1="70" y1="110" x2="70" y2="135" stroke="#D93A3A" stroke-width="3"/>
+        </svg>
+    </div>
+
+    <div class="lantern right">
+        <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="48" y="0" width="4" height="20" fill="#FFD700"/>
+            <path d="M10 20H90C95.5228 20 100 24.4772 100 30V90C100 95.5228 95.5228 100 90 100H10C4.47715 100 0 95.5228 0 90V30C0 24.4772 4.47715 20 10 20Z" fill="#D93A3A"/>
+            <path d="M50 20V100" stroke="#B22222" stroke-width="2"/>
+            <path d="M25 20V100" stroke="#B22222" stroke-width="2"/>
+            <path d="M75 20V100" stroke="#B22222" stroke-width="2"/>
+            <rect x="20" y="100" width="60" height="10" fill="#FFD700"/>
+            <rect x="20" y="15" width="60" height="5" fill="#FFD700"/>
+            <line x1="30" y1="110" x2="30" y2="135" stroke="#D93A3A" stroke-width="3"/>
+            <line x1="50" y1="110" x2="50" y2="135" stroke="#D93A3A" stroke-width="3"/>
+            <line x1="70" y1="110" x2="70" y2="135" stroke="#D93A3A" stroke-width="3"/>
+        </svg>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="card">
+            <div class="horse-icon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M75 35C75 35 78 20 70 10C62 0 50 5 45 10C40 15 35 15 30 20C25 25 20 25 15 30C20 30 25 35 30 35C25 45 25 65 30 75L35 90" stroke="#D93A3A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 35C40 35 55 40 60 55C65 70 65 80 65 90" stroke="#D93A3A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M70 10C70 10 65 15 65 25" stroke="#D93A3A" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="20" r="2" fill="#D93A3A"/>
+                </svg>
+            </div>
+
+            <div class="header">
+                <h1>2025年度 · 年终分红登记</h1>
+                <p>见者有份，在此登记即可领取新春福利</p>
+            </div>
+
+            <form id="bonusForm">
+                <div class="form-group">
+                    <label class="form-label">1. 请问您与发件人的关系是？</label>
+                    <select class="form-select" required>
+                        <option value="" disabled selected>请选择一种关系</option>
+                        <option value="bestie">虽然很损但很爱的死党</option>
+                        <option value="family">相亲相爱一家人</option>
+                        <option value="colleague">共同打工的难兄难弟</option>
+                        <option value="creditor">某种意义上的“债主”</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">2. 回首这一年，您的心情指数是？</label>
+                    <select class="form-select" required>
+                        <option value="5">😁 超级开心，赢麻了</option>
+                        <option value="4">🙂 稳中有进，还不错</option>
+                        <option value="3">😐 平平淡淡才是真</option>
+                        <option value="1">😫 别提了，只想快进</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">3. 丙午马年，您最大的期许是？</label>
+                    <textarea class="form-textarea" placeholder="例如：暴富、脱单、不劳而获..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">4. 请输入接收分红的银行卡号</label>
+                    <input type="number" class="form-input" placeholder="请输入您的银行卡号" required>
+                    <div style="font-size: 12px; color: #999; margin-top: 5px;">*系统将通过此卡号发放巨额祝福</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="btnSubmit">立即提交领取</button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>Designed for Lunar New Year 2026</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="alertModal">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+            </div>
+            <h2>反诈警报！</h2>
+            <p><strong>您刚才差点就“被骗”了！</strong><br><br>
+            这只是一个玩笑，但如果这是真实的诈骗链接，您的银行卡信息可能已经泄露。<br><br>
+            春节将至，网络诈骗频发，<br>请务必做到：<br>
+            <span style="color:#d93a3a">不轻信、不转账、不随意填写个人信息。</span></p>
+            <a href="#" class="modal-btn" onclick="closeModal()">我记住了，这就去下载反诈APP</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('bonusForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止表单实际提交
+            
+            // 简单的交互延迟，模拟正在处理
+            const btn = document.getElementById('btnSubmit');
+            const originalText = btn.innerText;
+            btn.innerText = "正在加密传输...";
+            btn.style.opacity = "0.8";
+
+            setTimeout(function() {
+                // 显示弹窗
+                document.getElementById('alertModal').style.display = 'flex';
+                // 恢复按钮文字
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }, 800);
+        });
+
+        function closeModal() {
+            document.getElementById('alertModal').style.display = 'none';
+            alert("祝您新年快乐，钱包鼓鼓，远离诈骗！");
+            // 可选：重置表单
+            document.getElementById('bonusForm').reset();
+        }
+    </script>
+</body>
+</html>
